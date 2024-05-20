@@ -1,0 +1,9 @@
+Package                Version
+---------------------- -----------
+latex2sympy2           1.9.1
+matplotlib             3.9.0
+numpy                  1.26.4
+pillow                 10.3.0
+simpy                  4.1.1
+
+
