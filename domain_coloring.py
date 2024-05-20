@@ -50,10 +50,29 @@ def domain_coloring(
 
 time_start = time.time()
 
-expr = r"\frac{(z^2 - 1)(z - 2 - i)^2}{z^2 + 2 + i}"
+expr_f1 = r"\frac{(z^2 - 1)(z - 2 - i)^2}{z^2 + 2 + i}"
+
+
+def f1(z):
+    return (z**2 - 1) * (z - 2 - 1j) ** 2 / (z**2 + 2 + 1j)
+
+
+expr_f2 = r"\frac{z^3 + i}{z^2 + i}"
+
+
+def f2(z):
+    return (z**3 + 1j) / (z**2 + 1j)
+
+
+expr_f3 = r"\frac{e^{z^2} + z^3}{\sinh(z + i)}"
+
+
+def f3(z):
+    return (np.exp(z**2) + z**3) / np.sinh(z + 1j)
+
 
 domain_coloring(
-    Function(expr, "f1"),
+    Function(f2, "f2"),
     2048,
     [[-2.5, 2.5], [-2.5, 2.5]],
     [2**n for n in range(-3, 8, 1)],
