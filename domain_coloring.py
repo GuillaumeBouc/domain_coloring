@@ -1,7 +1,7 @@
 from PIL import Image
 from typing import List
 import numpy as np
-import time
+import timeit
 
 from make_circle import generate_grid, map_grid_to_colors
 from function import Function
@@ -48,8 +48,6 @@ def domain_coloring(
     return image
 
 
-time_start = time.time()
-
 expr_f1 = r"\frac{(z^2 - 1)(z - 2 - i)^2}{z^2 + 2 + i}"
 
 
@@ -71,11 +69,27 @@ def f3(z):
     return (np.exp(z**2) + z**3) / np.sinh(z + 1j)
 
 
-domain_coloring(
-    Function(f2, "f2"),
-    2048,
-    [[-2.5, 2.5], [-2.5, 2.5]],
-    [2**n for n in range(-3, 8, 1)],
-    alpha=0.8,
+expr_f4 = r"e^{\sin(z)} + \cos(z) - z"
+
+
+def f4(z):
+    return np.exp(np.sin(z)) + np.cos(z) - z
+
+
+expr_f5 = r"z^2"
+
+
+def f5(z):
+    return z**2
+
+
+timer = timeit.Timer(
+    lambda: domain_coloring(
+        Function(expr_f5, "f5"),
+        1024,
+        [[-5, 5], [-5, 5]],
+        [2**n for n in range(-3, 8, 1)],
+        alpha=0.8,
+    )
 )
-print(f"Time taken: {time.time() - time_start:.2f} seconds")
+print(f"Time taken: {timer.timeit(1):.2f} seconds")
